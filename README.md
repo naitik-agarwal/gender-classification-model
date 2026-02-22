@@ -1,46 +1,158 @@
-Project Overview:
-This project focuses on developing a deep learning model to classify the gender (male or female) of individuals from images using Convolutional Neural Networks (CNNs). The model is trained and tested on a dataset of 6,000 images, utilizing deep learning techniques to extract features from the images and predict gender.
+Gender Classification using CNN
+Overview
 
-Objective:
-The primary objective of this project is to create a CNN model capable of accurately predicting the gender of individuals based on their facial features. The model is built using Python and popular libraries like TensorFlow/Keras for neural network construction and training.
+This project implements a Convolutional Neural Network (CNN) to classify facial images as Male or Female.
+The model is trained from scratch using TensorFlow/Keras and achieves approximately 87–88% test accuracy on the current dataset.
 
-Dataset:
-The dataset consists of 6,000 images, each labeled as either male or female. These images are used to train the model to learn gender-specific facial features. The dataset is split into:
-Training data (x_train, y_train): Used to train the model.
-Test data (x_test, y_test): Used to evaluate the modelÃ¢ÂÂs performance.
+The goal of this project is to understand and build an end-to-end deep learning pipeline including:
 
-Model Architecture:
-The model is built using a Convolutional Neural Network (CNN) with the following key components:
-Input Layer: Accepts images of fixed dimensions (e.g., 64x64 pixels).
-Convolutional Layers: Extract relevant features from the images (such as edges, textures, and patterns).
-Pooling Layers: Reduce spatial dimensions while retaining important features.
-Fully Connected Layers: Learn relationships between the extracted features to predict gender.
-Output Layer: A softmax or sigmoid activation function used for binary classification (male or female).
-Dependencies
+Image preprocessing
 
-To run this project, you'll need the following libraries:
-TensorFlow / Keras
-NumPy
-Matplotlib (for visualizations)
-Scikit-learn (for data preprocessing)
+CNN architecture design
 
-Training:
-The dataset is split using train_test_split, where the training data is used to optimize the model, and the test data is used to evaluate its performance. The model is trained using backpropagation and gradient descent to minimize the loss function.
+Model training and evaluation
 
-Evaluation Metrics:
-The performance of the model is evaluated using the following metrics:
-Accuracy: Percentage of correct predictions.
-Precision/Recall/F1-Score: Used to measure the modelÃ¢ÂÂs performance, especially in class-imbalanced datasets.
+Performance analysis using classification metrics
 
-Results:
-The model is tested on the test set (x_test, y_test), and performance metrics such as accuracy and confusion matrix are provided.
+Dataset
 
-Challenges:
-During the development of the model, several challenges were faced, including:
-Imbalanced Dataset: The model tended to favor one class, which was addressed by techniques like data augmentation and class weighting.
-Overfitting: To prevent overfitting, the model architecture was optimized and techniques like dropout and early stopping were used.
+The dataset consists of approximately 1,000 facial images divided into two classes:
 
-Future Improvements:
-Data Augmentation: To further improve the modelÃ¢ÂÂs robustness, data augmentation techniques can be applied.
-Transfer Learning: Using pre-trained models such as VGG16 or ResNet for feature extraction could enhance the model's performance.
-Real-time Prediction: The model can be deployed for real-time gender classification in applications.
+Female
+
+Male
+
+The images are resized to 100 × 100 pixels and normalized before training.
+
+Data split:
+
+80% Training
+
+20% Testing
+Stratified splitting is used to maintain class balance.
+
+Model Architecture
+
+The CNN architecture is built using Keras Sequential API.
+
+Architecture:
+
+Conv2D (32 filters, 3×3) + ReLU
+
+MaxPooling (2×2)
+
+Batch Normalization
+
+Conv2D (64 filters, 3×3) + ReLU
+
+MaxPooling (2×2)
+
+Batch Normalization
+
+Conv2D (128 filters, 3×3) + ReLU
+
+MaxPooling (2×2)
+
+Batch Normalization
+
+Flatten
+
+Dense (128 units, ReLU)
+
+Dropout (0.5)
+
+Dense (2 units, Softmax)
+
+Loss Function: Categorical Crossentropy
+Optimizer: Adam
+Regularization: Dropout + Early Stopping
+
+The convolutional layers extract spatial features such as edges, textures, and facial patterns.
+The dense layers learn high-level feature interactions to perform classification.
+
+Training Strategy
+
+Images are normalized to range [0,1].
+
+EarlyStopping is used to prevent overfitting.
+
+Model training typically converges within 15–20 epochs.
+
+Training accuracy approaches ~99%, while test accuracy stabilizes around 87–88%, indicating mild but controlled overfitting.
+
+Evaluation
+
+Final Test Results:
+
+Test Accuracy: ~87–88%
+
+Balanced precision and recall across both classes
+
+Confusion matrix used to analyze class-wise performance
+
+Example performance:
+
+Female recall: ~84%
+
+Male recall: ~92%
+
+This shows the model generalizes reasonably well across both categories.
+
+How to Run
+
+Clone the repository
+
+Create virtual environment:
+
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+
+Run:
+
+python GenderClassificationModel.py
+
+Make sure the dataset folder structure is:
+
+DATASET/
+Female/
+Male/
+Challenges Faced
+
+Initial class imbalance caused biased predictions.
+
+Overfitting due to limited dataset size.
+
+Sensitivity to lighting and facial orientation.
+
+These were mitigated using:
+
+Stratified train-test split
+
+Dropout layers
+
+Early stopping
+
+Possible Improvements
+
+Use RGB images instead of grayscale
+
+Apply controlled data augmentation
+
+Increase dataset size
+
+Apply transfer learning (MobileNetV2 / EfficientNet)
+
+Deploy as a web application (Flask/Streamlit)
+
+What This Project Demonstrates
+
+Understanding of CNN architecture
+
+Data preprocessing pipeline
+
+Model evaluation using classification metrics
+
+Handling overfitting and class imbalance
+
+Clean modular ML code structure
